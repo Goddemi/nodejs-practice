@@ -1,0 +1,11 @@
+{
+  "name": "nodejs-practice",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": "https://github.com/Goddemi/nodejs-practice",
+  "author": "goddemi <goddemi0124@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
