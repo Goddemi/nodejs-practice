@@ -58,6 +58,28 @@ MongoClient.connect(
     });
     // add라는 이름으로 들어와서 post요청을 하면, 그놈이 post한 것들을 Database "post" 컬렉션 안에 집어넣어라!
 
+    app.delete("/delete", function (req, response) {
+      req.body._id = parseInt(req.body._id);
+
+      Database.collection("post").deleteOne(
+        { _id: req.body._id },
+        function (err, result) {
+          response.status(200).send({ message: "성공햇습니다." });
+          // response.status(400).send({ message: "400 error" }); // stats(200 or 400 or 500) <-- status값에 따라서 브라우저에서 성공 / 실패를 인식한다.
+        }
+      );
+    });
+
+    //상세페이지 만들기
+    app.get("/detail/:id", function (req, res) {
+      Database.collection("post").findOne(
+        { _id: parseInt(req.params.id) }, // 안되서 봤더니 데이터베이스 안에 들어 있는 값의 자료형이 number였다.
+        function (err, result) {
+          res.render("어느파일에 보내줘?ex) list.ejs", { data: result });
+        }
+      );
+    });
+
     app.get("/list", function (req, response) {
       Database.collection("post")
         .find()
