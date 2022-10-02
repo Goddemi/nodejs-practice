@@ -1,8 +1,6 @@
 const express = require("express");
 const app = express();
 
-app.set("view engine", "ejs");
-
 let Database;
 
 const MongoClient = require("mongodb").MongoClient;
@@ -30,17 +28,17 @@ MongoClient.connect(
         { name: "게시물갯수" },
         function (err, result) {
           localTotalPost = result.totalPost;
-        }
-      );
 
-      Database.collection("post").insertOne(
-        {
-          id: localTotalPost,
-          name: req.body.title,
-          detail: req.body.detail,
-        },
-        function (err, res) {
-          console.log("저장완료");
+          Database.collection("post").insertOne(
+            {
+              _id: localTotalPost,
+              name: req.body.title,
+              detail: req.body.detail,
+            },
+            function (err, res) {
+              console.log("저장완료");
+            }
+          );
         }
       );
 
