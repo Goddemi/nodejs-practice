@@ -13,9 +13,9 @@ MongoClient.connect(
 
     app.use(express.urlencoded({ extended: true }));
 
-    app.get("/pet", function (req, res) {
-      res.send("Hi nice to meet you");
-    });
+    // app.get("/pet", function (req, res) {
+    //   res.send("Hi nice to meet you");
+    // });
 
     app.get("/beauty", (req, res) => {
       res.sendFile(__dirname + "/index.html");
@@ -99,3 +99,13 @@ MongoClient.connect(
 
 //데이터 베이스 접속이 완료되면 서버를 만들어 주어라. 라는 의미.
 //에러 처리.
+
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const session = require("expree-session");
+
+app.use(
+  session({ secret: "비밀코드", resave: true, saveUninitialized: false })
+);
+app.use(passport.initialize());
+app.use(passport.session());
